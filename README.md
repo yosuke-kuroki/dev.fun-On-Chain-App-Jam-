@@ -132,14 +132,3 @@ This app is specifically designed for the **dev.fun On-Chain App Jam** and inclu
 - Engaging user experience
 - Modern, professional design
 
-## 📞 Support
-
-For questions about this submission:
-- Twitter: [@devfunpump](https://twitter.com/devfunpump)
-- Documentation: [docs.dev.fun](https://docs.dev.fun/)
-
----
-
-**Built with ❤️ for the dev.fun On-Chain App Jam**
-
-*May the best coin warrior win! ⚔️*
