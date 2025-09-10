@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solana Coin Battle Arena - dev.fun On-Chain App Jam</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>⚔️ Solana Coin Battle Arena</h1>
+                    <p>dev.fun On-Chain App Jam Submission</p>
+                </div>
+                <div class="wallet-section">
+                    <button id="connectWallet" class="wallet-btn">Connect Wallet</button>
+                    <div id="walletInfo" class="wallet-info" style="display: none;">
+                        <span id="walletAddress"></span>
+                        <span id="walletBalance"></span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h2>Battle with Your Favorite Pump.fun Coins!</h2>
+                    <p>Enter the arena, stake SOL, and battle other players using your pump.fun tokens. Winner takes all!</p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number" id="totalBattles">0</span>
+                            <span class="stat-label">Total Battles</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" id="activePlayers">0</span>
+                            <span class="stat-label">Active Players</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" id="totalPrize">0</span>
+                            <span class="stat-label">SOL in Prizes</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Coin Selection -->
+            <section class="coin-selection" id="coinSelection">
+                <h3>Choose Your Battle Coin</h3>
+                <div class="coin-input-section">
+                    <input type="text" id="coinMintInput" placeholder="Enter pump.fun coin mint address (e.g., $Buidl, $Rick, $Zala)">
+                    <button id="loadCoinData" class="btn-primary">Load Coin</button>
+                </div>
+                <div id="coinInfo" class="coin-info" style="display: none;">
+                    <div class="coin-details">
+                        <img id="coinImage" src="" alt="Coin Image">
+                        <div class="coin-text">
+                            <h4 id="coinName"></h4>
+                            <p id="coinSymbol"></p>
+                            <p id="coinPrice"></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Battle Creation -->
+            <section class="battle-creation" id="battleCreation" style="display: none;">
+                <h3>Create Your Battle</h3>
+                <div class="battle-form">
+                    <div class="form-group">
+                        <label>Entry Fee (SOL)</label>
+                        <input type="number" id="entryFee" value="0.001" min="0.001" step="0.001">
+                    </div>
+                    <button id="createBattle" class="btn-primary">Create Battle</button>
+                </div>
+            </section>
+
+            <!-- Active Battles -->
+            <section class="active-battles">
+                <h3>Active Battles</h3>
+                <div id="battlesList" class="battles-list">
+                    <!-- Battles will be populated here -->
+                </div>
+            </section>
+
+            <!-- Battle Arena -->
+            <section class="battle-arena" id="battleArena" style="display: none;">
+                <h3>Battle in Progress</h3>
+                <div class="battle-container">
+                    <div class="player player1">
+                        <div class="player-info">
+                            <h4 id="player1Name">Player 1</h4>
+                            <div class="health-bar">
+                                <div class="health-fill" id="player1Health"></div>
+                            </div>
+                            <span id="player1HealthText">100/100</span>
+                        </div>
+                        <div class="player-avatar" id="player1Avatar">⚔️</div>
+                    </div>
+                    
+                    <div class="vs-section">
+                        <div class="vs-text">VS</div>
+                        <div class="battle-status" id="battleStatus">Preparing...</div>
+                    </div>
+                    
+                    <div class="player player2">
+                        <div class="player-info">
+                            <h4 id="player2Name">Player 2</h4>
+                            <div class="health-bar">
+                                <div class="health-fill" id="player2Health"></div>
+                            </div>
+                            <span id="player2HealthText">100/100</span>
+                        </div>
+                        <div class="player-avatar" id="player2Avatar">⚔️</div>
+                    </div>
+                </div>
+                
+                <div class="battle-logs" id="battleLogs">
+                    <!-- Battle logs will appear here -->
+                </div>
+            </section>
+
+            <!-- Leaderboard -->
+            <section class="leaderboard">
+                <h3>🏆 Top Warriors</h3>
+                <div id="leaderboardList" class="leaderboard-list">
+                    <!-- Leaderboard will be populated here -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Built for dev.fun On-Chain App Jam | Powered by Solana & pump.fun</p>
+            <div class="social-links">
+                <a href="https://twitter.com/devfunpump" target="_blank">@devfunpump</a>
+                <a href="https://docs.dev.fun/" target="_blank">Documentation</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner"></div>
+        <p>Processing transaction...</p>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification" style="display: none;">
+        <span id="notificationText"></span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
